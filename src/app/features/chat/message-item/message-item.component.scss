@@ -1,0 +1,45 @@
+.message {
+  display: flex;
+  gap: 15px;
+  padding: 25px 8%;
+}
+
+.user-message {
+  background: #f7f7f8;
+}
+
+.assistant-message {
+  background: #ffffff;
+}
+
+.avatar {
+  width: 35px;
+  height: 35px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 6px;
+
+  background: #111827;
+  color: white;
+
+  font-size: 11px;
+  font-weight: bold;
+  flex-shrink: 0;
+}
+
+.content {
+  max-width: 800px;
+}
+
+.role {
+  font-weight: bold;
+  margin-bottom: 6px;
+}
+
+.text {
+  line-height: 1.6;
+  white-space: pre-wrap;
+}

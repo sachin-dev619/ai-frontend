@@ -1,0 +1,33 @@
+<div class="input-container">
+
+  <div class="input-wrapper">
+
+    <textarea
+      [(ngModel)]="message"
+      placeholder="Message your AI assistant..."
+      rows="1"
+      [disabled]="!conversationId || sending"
+      (keydown.enter)="$event.preventDefault(); sendMessage()">
+    </textarea>
+
+    <button
+      (click)="sendMessage()"
+      [disabled]="!conversationId || !message.trim() || sending">
+
+      <span *ngIf="!sending">
+        ➤
+      </span>
+
+      <span *ngIf="sending">
+        ...
+      </span>
+
+    </button>
+
+  </div>
+
+  <small>
+    Your AI assistant runs locally using Ollama.
+  </small>
+
+</div>

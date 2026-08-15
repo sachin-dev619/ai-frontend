@@ -1,0 +1,42 @@
+<div class="chat-layout">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+
+    <div class="sidebar-header">
+      <h2>AI Assistant</h2>
+
+      <button
+        class="new-chat-btn"
+        (click)="newChat()">
+        + New Chat
+      </button>
+    </div>
+
+    <app-conversation-list
+      (conversationSelected)="selectConversation($event)">
+    </app-conversation-list>
+
+    <div class="sidebar-footer">
+
+      <button
+        class="logout-btn"
+        (click)="logout()">
+        Logout
+      </button>
+
+    </div>
+
+  </aside>
+
+
+  <!-- Main Chat -->
+  <main class="chat-main">
+
+    <app-chat-window
+      [conversationId]="selectedConversationId">
+    </app-chat-window>
+
+  </main>
+
+</div>

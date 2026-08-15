@@ -1,0 +1,28 @@
+<div class="conversation-list">
+
+  <div
+    *ngIf="loading"
+    class="loading">
+    Loading chats...
+  </div>
+
+  <div
+    *ngIf="!loading && conversations.length === 0"
+    class="empty">
+    No conversations yet.
+  </div>
+
+  <button
+    *ngFor="let conversation of conversations"
+    class="conversation"
+    (click)="selectConversation(conversation.id)">
+
+    <span class="chat-icon">💬</span>
+
+    <span class="conversation-title">
+      {{ conversation.title }}
+    </span>
+
+  </button>
+
+</div>
