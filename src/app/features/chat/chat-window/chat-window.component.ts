@@ -1,7 +1,9 @@
 import {
   Component,
+  EventEmitter,
   Input,
   OnChanges,
+  Output,
   SimpleChanges
 } from '@angular/core';
 
@@ -17,6 +19,9 @@ export class ChatWindowComponent implements OnChanges {
 
   @Input()
   conversationId: number | null = null;
+
+  @Output()
+  conversationCreated = new EventEmitter<number>();
 
   messages: Message[] = [];
 
@@ -60,5 +65,16 @@ export class ChatWindowComponent implements OnChanges {
         }
 
       });
+  }
+
+  onConversationCreated(id: number): void {
+    this.conversationCreated.emit(id);
+  }
+
+  onMessagesSent(newMessages: Message[]): void {
+    this.messages = [
+      ...this.messages,
+      ...newMessages
+    ];
   }
 }

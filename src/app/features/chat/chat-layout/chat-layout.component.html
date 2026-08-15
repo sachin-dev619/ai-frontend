@@ -34,7 +34,8 @@
   <main class="chat-main">
 
     <app-chat-window
-      [conversationId]="selectedConversationId">
+      [conversationId]="selectedConversationId"
+      (conversationCreated)="onConversationCreated($event)">
     </app-chat-window>
 
   </main>

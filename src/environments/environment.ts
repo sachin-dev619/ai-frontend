@@ -1,4 +1,5 @@
 export const environment = {
   production: false,
-  apiUrl: 'http://127.0.0.1:8000/api'
+  // Same-origin via Angular proxy (avoids browser CORS to :8000)
+  apiUrl: '/api'
 };

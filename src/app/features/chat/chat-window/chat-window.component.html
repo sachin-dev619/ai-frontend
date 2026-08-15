@@ -46,7 +46,9 @@
   <!-- Input -->
 
   <app-message-input
-    [conversationId]="conversationId">
+    [conversationId]="conversationId"
+    (conversationCreated)="onConversationCreated($event)"
+    (messagesSent)="onMessagesSent($event)">
   </app-message-input>
 
 </div>

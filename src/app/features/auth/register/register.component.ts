@@ -68,6 +68,11 @@ export class RegisterComponent {
     ).subscribe({
 
       next: (response) => {
+        if (!response?.token) {
+          this.loading = false;
+          this.errorMessage = 'Registration succeeded but no token was returned.';
+          return;
+        }
 
         this.authService.saveToken(
           response.token
@@ -80,10 +85,12 @@ export class RegisterComponent {
       error: (error) => {
 
         this.loading = false;
+        console.error('Register error', error);
 
-        this.errorMessage =
-          error?.error?.message ||
-          'Registration failed.';
+        this.errorMessage = this.extractError(
+          error,
+          'Registration failed.'
+        );
 
       },
 
@@ -92,5 +99,30 @@ export class RegisterComponent {
       }
 
     });
+  }
+
+  private extractError(error: any, fallback: string): string {
+    const errors = error?.error?.errors;
+
+    if (errors) {
+      const firstKey = Object.keys(errors)[0];
+      if (firstKey && errors[firstKey]?.[0]) {
+        return errors[firstKey][0];
+      }
+    }
+
+    if (error?.error?.message) {
+      return error.error.message;
+    }
+
+    if (error?.status === 0) {
+      return 'Cannot reach API. Make sure Laravel is running on port 8000 and refresh the page.';
+    }
+
+    if (error?.status) {
+      return `${fallback} (HTTP ${error.status})`;
+    }
+
+    return fallback;
   }
 }

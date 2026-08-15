@@ -34,7 +34,7 @@ export class ConversationListComponent implements OnInit {
       .subscribe({
 
         next: (response) => {
-          this.conversations = response;
+          this.conversations = Array.isArray(response) ? response : [];
         },
 
         error: (error) => {

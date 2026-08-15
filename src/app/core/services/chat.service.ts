@@ -1,9 +1,19 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 
 import { environment } from '../../../environments/environment';
 import { Message } from '../models/message.model';
+
+interface ApiResponse<T> {
+  success: boolean;
+  data: T;
+}
+
+interface SendMessageResponse {
+  user_message: Message;
+  assistant_message: Message;
+}
 
 @Injectable({
   providedIn: 'root'
@@ -17,21 +27,25 @@ export class ChatService {
   ) {}
 
   getMessages(conversationId: number): Observable<Message[]> {
-    return this.http.get<Message[]>(
-      `${this.apiUrl}/${conversationId}/messages`
-    );
+    return this.http
+      .get<ApiResponse<Message[]>>(
+        `${this.apiUrl}/${conversationId}/messages`
+      )
+      .pipe(map((response) => response.data ?? []));
   }
 
   sendMessage(
     conversationId: number,
     content: string
-  ): Observable<Message> {
+  ): Observable<SendMessageResponse> {
 
-    return this.http.post<Message>(
-      `${this.apiUrl}/${conversationId}/messages`,
-      {
-        content
-      }
-    );
+    return this.http
+      .post<ApiResponse<SendMessageResponse>>(
+        `${this.apiUrl}/${conversationId}/messages`,
+        {
+          content
+        }
+      )
+      .pipe(map((response) => response.data));
   }
 }
