@@ -6,13 +6,13 @@
       [(ngModel)]="message"
       placeholder="Message your AI assistant..."
       rows="1"
-      [disabled]="!conversationId || sending"
+      [disabled]="sending"
       (keydown.enter)="$event.preventDefault(); sendMessage()">
     </textarea>
 
     <button
       (click)="sendMessage()"
-      [disabled]="!conversationId || !message.trim() || sending">
+      [disabled]="!message.trim() || sending">
 
       <span *ngIf="!sending">
         ➤
@@ -27,7 +27,7 @@
   </div>
 
   <small>
-    Your AI assistant runs locally using Ollama.
+    Mode: Online free AI (Gemini) — Ollama/local not enabled yet
   </small>
 
 </div>
