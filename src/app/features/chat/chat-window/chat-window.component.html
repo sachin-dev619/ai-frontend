@@ -19,7 +19,7 @@
   <div class="messages">
 
     <div
-      *ngIf="!conversationId"
+      *ngIf="!conversationId && messages.length === 0 && !waitingForReply"
       class="welcome">
 
       <div class="welcome-icon">
@@ -34,11 +34,48 @@
 
     </div>
 
+    <div
+      *ngIf="conversationId && messages.length === 0 && !waitingForReply && loadingMessages"
+      class="welcome">
+      <p>Loading messages...</p>
+    </div>
+
+    <div
+      *ngIf="conversationId && messages.length === 0 && !waitingForReply && !loadingMessages && !errorMessage"
+      class="welcome">
+      <h1>New chat</h1>
+      <p>Send a message to start the conversation.</p>
+    </div>
 
     <app-message-item
       *ngFor="let message of messages"
       [message]="message">
     </app-message-item>
+
+    <div
+      *ngIf="waitingForReply"
+      class="message assistant-message thinking">
+
+      <div class="avatar">
+        <span>AI</span>
+      </div>
+
+      <div class="content">
+        <div class="role">AI Assistant</div>
+        <div class="text thinking-text">
+          Thinking<span class="dots">...</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div
+      *ngIf="errorMessage"
+      class="chat-error">
+      {{ errorMessage }}
+    </div>
+
+    <div #messagesEnd></div>
 
   </div>
 
@@ -48,7 +85,9 @@
   <app-message-input
     [conversationId]="conversationId"
     (conversationCreated)="onConversationCreated($event)"
-    (messagesSent)="onMessagesSent($event)">
+    (messagePending)="onMessagePending($event)"
+    (messagesSent)="onMessagesSent($event)"
+    (sendFailed)="onSendFailed($event)">
   </app-message-input>
 
 </div>

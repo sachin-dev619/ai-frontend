@@ -14,6 +14,7 @@
     </div>
 
     <app-conversation-list
+      [selectedConversationId]="selectedConversationId"
       (conversationSelected)="selectConversation($event)">
     </app-conversation-list>
 
@@ -35,7 +36,8 @@
 
     <app-chat-window
       [conversationId]="selectedConversationId"
-      (conversationCreated)="onConversationCreated($event)">
+      (conversationCreated)="onConversationCreated($event)"
+      (messagesUpdated)="onMessagesUpdated()">
     </app-chat-window>
 
   </main>

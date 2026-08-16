@@ -20,7 +20,7 @@
   padding: 12px;
   margin-bottom: 4px;
 
-  border: none;
+  border: 1px solid transparent;
   border-radius: 6px;
 
   background: transparent;
@@ -30,8 +30,13 @@
   cursor: pointer;
 }
 
-.conversation:hover {
+.conversation:hover,
+.conversation.active {
   background: #343541;
+}
+
+.conversation.active {
+  border-color: #565869;
 }
 
 .chat-icon {

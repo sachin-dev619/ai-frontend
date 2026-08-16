@@ -2,8 +2,8 @@ import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { AuthService } from '../../../core/services/auth.service';
-import { ConversationService } from '../../../core/services/conversation.service';
 import { ConversationListComponent } from '../conversation-list/conversation-list.component';
+import { Conversation } from '../../../core/models/conversation.model';
 
 @Component({
   selector: 'app-chat-layout',
@@ -19,31 +19,26 @@ export class ChatLayoutComponent {
 
   constructor(
     private router: Router,
-    private authService: AuthService,
-    private conversationService: ConversationService
+    private authService: AuthService
   ) {}
 
   selectConversation(id: number): void {
     this.selectedConversationId = id;
   }
 
-  onConversationCreated(id: number): void {
-    this.selectedConversationId = id;
-    this.conversationList?.loadConversations();
+  onConversationCreated(conversation: Conversation): void {
+    this.selectedConversationId = conversation.id;
+    // Update sidebar immediately — do not wait on a list API call
+    // (that can get stuck behind the long AI request).
+    this.conversationList?.prependConversation(conversation);
+  }
+
+  onMessagesUpdated(): void {
+    this.conversationList?.loadConversations(false);
   }
 
   newChat(): void {
-    this.conversationService
-      .createConversation('New Chat')
-      .subscribe({
-        next: (conversation) => {
-          this.selectedConversationId = conversation.id;
-          this.conversationList?.loadConversations();
-        },
-        error: (error) => {
-          console.error('Failed to create conversation', error);
-        }
-      });
+    this.selectedConversationId = null;
   }
 
   logout(): void {

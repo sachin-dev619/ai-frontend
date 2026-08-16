@@ -1,20 +1,28 @@
 <div class="conversation-list">
 
   <div
-    *ngIf="loading"
+    *ngIf="loading && conversations.length === 0"
     class="loading">
     Loading chats...
   </div>
 
   <div
-    *ngIf="!loading && conversations.length === 0"
+    *ngIf="!loading && conversations.length === 0 && !loadError"
     class="empty">
     No conversations yet.
+  </div>
+
+  <div
+    *ngIf="loadError && conversations.length === 0"
+    class="empty">
+    {{ loadError }}
   </div>
 
   <button
     *ngFor="let conversation of conversations"
     class="conversation"
+    type="button"
+    [class.active]="conversation.id === selectedConversationId"
     (click)="selectConversation(conversation.id)">
 
     <span class="chat-icon">💬</span>

@@ -35,6 +35,7 @@
   align-items: center;
   justify-content: center;
   text-align: center;
+  padding: 24px;
 }
 
 .welcome-icon {
@@ -50,4 +51,69 @@
 .welcome p {
   color: #777;
   margin-top: 10px;
+}
+
+.message {
+  display: flex;
+  gap: 15px;
+  padding: 25px 8%;
+}
+
+.assistant-message {
+  background: #ffffff;
+}
+
+.avatar {
+  width: 35px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  background: #111827;
+  color: white;
+  font-size: 11px;
+  font-weight: bold;
+  flex-shrink: 0;
+}
+
+.content {
+  max-width: 800px;
+}
+
+.role {
+  font-weight: bold;
+  margin-bottom: 6px;
+}
+
+.text {
+  line-height: 1.6;
+  white-space: pre-wrap;
+}
+
+.thinking {
+  opacity: 0.9;
+}
+
+.thinking-text {
+  color: #6b7280;
+}
+
+.dots {
+  display: inline-block;
+  animation: blink 1.2s infinite;
+}
+
+.chat-error {
+  margin: 12px 8%;
+  padding: 12px 14px;
+  border-radius: 8px;
+  background: #fef2f2;
+  color: #b91c1c;
+  font-size: 14px;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 0.2; }
+  50% { opacity: 1; }
 }

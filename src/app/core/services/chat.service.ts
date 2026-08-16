@@ -4,6 +4,7 @@ import { Observable, map } from 'rxjs';
 
 import { environment } from '../../../environments/environment';
 import { Message } from '../models/message.model';
+import { AiMode } from './ai-mode.service';
 
 interface ApiResponse<T> {
   success: boolean;
@@ -36,14 +37,16 @@ export class ChatService {
 
   sendMessage(
     conversationId: number,
-    content: string
+    content: string,
+    mode: AiMode = 'online'
   ): Observable<SendMessageResponse> {
 
     return this.http
       .post<ApiResponse<SendMessageResponse>>(
         `${this.apiUrl}/${conversationId}/messages`,
         {
-          content
+          content,
+          mode
         }
       )
       .pipe(map((response) => response.data));
